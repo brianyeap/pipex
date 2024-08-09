@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bryeap <bryeap@student.42.fr>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:24:45 by bryeap            #+#    #+#             */
-/*   Updated: 2024/08/09 19:14:56 by bryeap           ###   ########.fr       */
+/*   Updated: 2024/08/10 05:24:40 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void child_process(char **argv, char **envp, int *fd)
+{
+	int	filein;
+
+	filein = open(argv[1], O_RDONLY, 0777);
+	if (filein == -1)
+		error();
+	dup2(fd[1], STDOUT_FILENO);
+	dup2(filein, STDIN_FILENO);
+	close(fd[0]);
+	execute(argv[2], envp);
+}
+
+void parent_process(char **argv, char **envp, int *fd)
+{
+	int	fileout;
+
+	fileout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fileout == -1)
+		error();
+	dup2(fd[0], STDIN_FILENO);
+	dup2(fileout, STDOUT_FILENO);
+	close(fd[1]);
+	execute(argv[3], envp);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,7 +45,15 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc == 5)
 	{
-		printf("yay");
+		if (pipe(fd) == -1)
+			error();
+		pid = fork();
+		if (pid == -1)
+			error();
+		if (pid == 0)
+			child_process(argv, envp, fd);
+		waitpid(pid, NULL, 0);
+		parent_process(argv, envp, fd);
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bryeap <bryeap@student.42.fr>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:27:07 by bryeap            #+#    #+#             */
-/*   Updated: 2024/08/09 19:14:48 by bryeap           ###   ########.fr       */
+/*   Updated: 2024/08/10 05:06:56 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 
+char	*ft_strnstr(const char *str, const char *c, size_t n);
+char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+
 void	error(void);
+char    *find_path(char *cmd, char **envp);
+void	execute(char *argv, char **envp);
 
 #endif
