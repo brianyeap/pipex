@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bryeap <bryeap@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:40:27 by bryeap            #+#    #+#             */
-/*   Updated: 2024/08/10 05:18:01 by brian            ###   ########.fr       */
+/*   Updated: 2024/09/27 22:37:53 by bryeap           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-char *find_path(char *cmd, char **envp)
+char	*find_path(char *cmd, char **envp)
 {
 	int		i;
-	char 	**paths;
+	char	**paths;
 	char	*path;
 	char	*part_path;
 
@@ -50,7 +50,7 @@ char *find_path(char *cmd, char **envp)
 	while (paths[i])
 	{
 		part_path = ft_strjoin(paths[i], "/");
-    	path = ft_strjoin(part_path, cmd);
+		path = ft_strjoin(part_path, cmd);
 		free(part_path);
 		if (access(path, F_OK) == 0)
 			return (path);
@@ -61,7 +61,7 @@ char *find_path(char *cmd, char **envp)
 	while (paths[++i])
 		free(paths[i]);
 	free(paths);
-	return 0;
+	return (0);
 }
 
 void	execute(char *argv, char **envp)

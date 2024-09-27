@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bryeap <bryeap@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 18:24:45 by bryeap            #+#    #+#             */
-/*   Updated: 2024/08/10 05:24:40 by brian            ###   ########.fr       */
+/*   Updated: 2024/09/27 22:37:08 by bryeap           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void child_process(char **argv, char **envp, int *fd)
+void	child_process(char **argv, char **envp, int *fd)
 {
 	int	filein;
 
@@ -25,7 +25,7 @@ void child_process(char **argv, char **envp, int *fd)
 	execute(argv[2], envp);
 }
 
-void parent_process(char **argv, char **envp, int *fd)
+void	parent_process(char **argv, char **envp, int *fd)
 {
 	int	fileout;
 
